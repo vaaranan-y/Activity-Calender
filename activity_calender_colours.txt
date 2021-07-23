@@ -1,0 +1,16 @@
+
+Columns:
+Yellow - #fbebcc
+Light yellow - #fbf7ef
+Current day (blue) - #c5e6f5
+
+Horizonatl lines - #858385
+
+
+Week labels:
+Next week - #fbebcc
+This week - #fbebcc
+
+Image library:
+Handle - #858385
+Background - #fbd988
