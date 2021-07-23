@@ -1,0 +1,42 @@
+
+Colours //
+
+Columns:
+Yellow - #fbebcc
+Light yellow - #fbf7ef
+Current day (blue) - #c5e6f5
+
+Horizontal lines - #858385
+
+
+Week labels:
+Next week - #fbebcc
+This week - #fbebcc
+
+Image library:
+Handle - #858385
+Background - #fbd988
+
+
+Fonts // 
+
+Day labels - 
+Font: K 105 Cyrillic
+Bold
+52 pt
+
+Day segment labels -
+Font: Billionary
+Regular
+68pt
+
+This week / next week (top left) -
+Font: K 105 Cyrillic
+Bold
+90 pt
+
+
+Image library labels - 
+Font: K 105 Cyrillic
+Bold
+48 pt
