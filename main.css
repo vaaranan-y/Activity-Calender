@@ -1,0 +1,27 @@
+table {
+	border-collapse: collapse;
+}
+td {
+	padding: 50px;
+}
+.border-row {
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	/* background-color: red */
+}
+.monday-col, .wednesday-col, .friday-col, .sunday-col {
+	background-color: #fbebcc;
+}
+
+.tuesday-col, .thursday-col, .saturday-col {
+	background-color: #fbf7ef;
+}
+
+th img {
+	width: 10vw;
+}
+
+.this-week {
+	color: purple;
+	font-family: sans-serif;
+}
