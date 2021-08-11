@@ -1,12 +1,25 @@
 body {
   max-width: 100%;
+
+}
+.p1{
+  display: inline;
+  position: absolute;
 }
 .main-table {
   display: inline;
   border-collapse: collapse;
+  width: 100%;
+  overflow: scroll;
 }
 .main-table tr td {
-  padding: 50px;
+  /*padding: 250px;*/
+}
+.main-table tbody{
+  display: table;
+  width: 100%;
+  padding: 0;
+
 }
 .border-row {
   border-top: 2px solid black;
@@ -33,35 +46,39 @@ body {
 .this-week {
   color: purple;
   font-family: sans-serif;
+  font-size: 1vw;
 }
+
+/*Side bar*/
 
 .sidebar {
   padding: 0;
   margin: 0;
   display: inline;
-  height: 100%;
   float: left;
+  height: 65vh;
 }
 
 .sidemenu {
-  display: inline;
-  background-color: #fbd988;
-  width: 300px;
-  height: 83vh;
   position: absolute;
-  right: -290px;
+  right: -19vw;
+  background-color: #fbd988;
+  width: 20vw;
+  height: 65vh;
   transition: 0.4s;
   overflow: scroll;
 }
 
 .sidemenu table {
+  position: absolute;
   display: inline;
-  /* border: 2px solid black; */
+   border: 2px solid black; 
 }
+
 .sidemenu table td {
   padding: 0;
   margin: 0;
-  /* border: 2px solid black; */
+   border: 2px solid black; 
 }
 
 .sidemenu table td img {
