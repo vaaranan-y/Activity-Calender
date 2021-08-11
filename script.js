@@ -64,3 +64,14 @@ for (item of draggables){
 		
 	})
 }
+
+var dateToday = new Date();
+var day = dateToday.getDay() - 1;
+const days = document.querySelectorAll("div.p1 table tr th");
+days[day + 1].style.backgroundColor = "#c5e6f5" 
+
+for(var i = day; i < 21; i += 7){
+	containers[i].style.backgroundColor = "#c5e6f5" 
+}
+console.log(dateToday);
+console.log(day);
