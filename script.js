@@ -2,7 +2,6 @@
 open = false;
 
 const sideMenu = document.querySelector(".sidemenu");
-console.log(sideMenu)
 
 sideMenu.addEventListener("click", () => {
 	
@@ -19,11 +18,31 @@ var x = 0
 var y = 0
 var currentElement = 0;
 toDrag = null
+var copies = [];
+
 
 const containers = document.querySelectorAll("div.p1 table tr td")
 const draggables = document.querySelectorAll("div.sidemenu table tr td img")
-console.log(containers)
-console.log(draggables)
+
+
+function updateCopies(){
+	var name = copies[copies.length - 1]
+	console.log(copies[copies.length - 1])
+	console.log(name)
+	copies[copies.length - 1].addEventListener("touchstart", () => {
+		//name.style.visibility = "hidden"
+	})
+	copies[copies.length - 1].addEventListener("touchmove", () => {
+		x = event.touches[0].clientX;
+		y = event.touches[0].clientY;
+		document.body.append(name);
+		name.style.position = "absolute";
+		name.style.width = "250px";
+		name.style.left = x+'px';
+  		name.style.top = y+'px';
+	})
+	console.log("yay")
+}
 
 
 for(let i = 0; i < 36; i++){
@@ -32,6 +51,8 @@ for(let i = 0; i < 36; i++){
 
 		console.log(currentElement)
 		toDrag = draggables[currentElement].cloneNode(true)
+		toDrag.classList.add("copy");
+		// toDrag.addEventListener("touchstart", console.log("working"))
 		// draggables[currentElement].style.visibility = "hidden"
 		
 	})
@@ -54,14 +75,21 @@ for (item of draggables){
 
 for (item of draggables){
 	item.addEventListener("touchend", () => {
-		toDrag.remove();
-		console.log("released")
-		newContainer = document.elementFromPoint(x, y)
-		newContainer.append(draggables[currentElement])
-		if (newContainer.className === "section-1" || newContainer.className === "section-2"){
-			newContainer.append(draggables[currentElement])
+
+
+		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
+			toDrag.remove();
 		}
-		
+
+		// toDrag.remove();
+		toDrag.style.display = "none"
+		toDrag.style.display = "block"
+		console.log("we are at: x = " + x + " y = " + y)
+		copies.push(toDrag);
+		console.log(copies[copies.length - 1])
+		updateCopies();
+		// newContainer = document.elementFromPoint(x, y)
+		// newContainer.append(draggables[currentElement])
 	})
 }
 
