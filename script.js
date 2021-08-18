@@ -43,13 +43,14 @@ function updateCopies(){
 	})
 	copies[copies.length - 1].addEventListener("touchend", () => {
 		name.style.display = "none"
+		console.log(document.elementFromPoint(x, y))
 		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
 		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			name.remove();
 			index = copies.indexOf(name)
 			copies.splice(index, 1);
 		} else {
-			toDrag.style.display = "block"
+			name.style.display = "block"
 		}
 	})
 
@@ -94,8 +95,7 @@ for (item of draggables){
 		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			toDrag.remove();
 		} else {
-			toDrag.style.display = "block"
-		console.log("we are at: x = " + x + " y = " + y)
+		toDrag.style.display = "block"
 		copies.push(toDrag);
 		console.log(copies[copies.length - 1])
 		updateCopies();
