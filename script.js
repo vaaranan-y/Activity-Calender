@@ -41,6 +41,18 @@ function updateCopies(){
 		name.style.left = x+'px';
   		name.style.top = y+'px';
 	})
+	copies[copies.length - 1].addEventListener("touchend", () => {
+		name.style.display = "none"
+		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
+		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
+			name.remove();
+			index = copies.indexOf(name)
+			copies.splice(index, 1);
+		} else {
+			toDrag.style.display = "block"
+		}
+	})
+
 	console.log("yay")
 }
 
@@ -76,20 +88,21 @@ for (item of draggables){
 for (item of draggables){
 	item.addEventListener("touchend", () => {
 
-
-		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
-			toDrag.remove();
-		}
-
 		// toDrag.remove();
 		toDrag.style.display = "none"
-		toDrag.style.display = "block"
+		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
+		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
+			toDrag.remove();
+		} else {
+			toDrag.style.display = "block"
 		console.log("we are at: x = " + x + " y = " + y)
 		copies.push(toDrag);
 		console.log(copies[copies.length - 1])
 		updateCopies();
 		// newContainer = document.elementFromPoint(x, y)
 		// newContainer.append(draggables[currentElement])
+		}
+		
 	})
 }
 
