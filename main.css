@@ -1,8 +1,10 @@
 body {
   max-width: 100%;
-
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-.p1{
+.p1 {
   display: inline;
   position: absolute;
 }
@@ -12,14 +14,23 @@ body {
   width: 100%;
   overflow: scroll;
 }
+.main-table tr th {
+  /*padding: 250px;*/
+  height: 10vh;
+  padding: none;
+  margin: 0;
+  width: 15vh;
+}
 .main-table tr td {
   /*padding: 250px;*/
+  height: 27vh;
+  padding: none;
+  margin: 0;
 }
-.main-table tbody{
+.main-table tbody {
   display: table;
   width: 100%;
   padding: 0;
-
 }
 .border-row {
   border-top: 2px solid black;
@@ -40,7 +51,11 @@ body {
 }
 
 .main-table th img {
-  width: 10vw;
+  width: 12.5vw;
+}
+.time-of-day img {
+  position: relative;
+  width: 1vw;
 }
 
 .this-week {
@@ -56,29 +71,32 @@ body {
   margin: 0;
   display: inline;
   float: left;
-  height: 65vh;
+  height: 100vh;
 }
 
 .sidemenu {
   position: absolute;
-  right: -19vw;
+  right: -21vw;
   background-color: #fbd988;
-  width: 20vw;
+  width: 22vw;
   height: 65vh;
   transition: 0.4s;
   overflow: scroll;
+  height: 100vh;
 }
 
 .sidemenu table {
   position: absolute;
   display: inline;
-   border: 2px solid black; 
+  border: 2px solid black;
+  height: 70vh;
 }
 
 .sidemenu table td {
   padding: 0;
   margin: 0;
-   border: 2px solid black; 
+  border: 2px solid black;
+  height: 10vh;
 }
 
 .sidemenu table td img {
@@ -86,6 +104,26 @@ body {
   width: 4.9vw;
 }
 
+.next-week {
+  font-size: 2.25vw;
+  color: white;
+  background-color: #2cb8f0;
+  text-decoration: none;
+  font-family: sans-serif;
+  top: 96vh;
+  position: absolute;
+}
+
+.this-week-link {
+  font-size: 2.25vw;
+  color: white;
+  background-color: #e844f4;
+  text-decoration: none;
+  font-family: sans-serif;
+  top: 96vh;
+  position: absolute;
+  font-weight: lighter;
+}
 /* .sidebar:active {
    border: 2px solid red; 
 } */

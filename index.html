@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Activity Calendar</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
-	<meta name="viewport" 
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
+
 <body>
 	<div class="p1">
-			<table class="main-table">
-		<tr class="deletion-box">
-			<!--Change the 'th' class selectors to their proper days-->
-			<th class="this-week deletion-box">This Week</th>
-			<th class="monday-col deletion-box"><img src="week_images/monday.png" alt="Monday" class="deletion-box"></th>
-			<th class="tuesday-col deletion-box"><img src="week_images/tuesday.png" alt="Tueday" class="deletion-box"></th>
-			<th class="monday-col deletion-box"><img src="week_images/wednesday.png" alt="Wednesday" class="deletion-box"></th>
-			<th class="tuesday-col deletion-box"><img src="week_images/thursday.png" alt="Thursday" class="deletion-box"></th>
-			<th class="monday-col deletion-box"><img src="week_images/friday.png" alt="Friday" class="deletion-box"></th>
-			<th class="tuesday-col deletion-box"><img src="week_images/saturday.png" alt="Saturday" class="deletion-box"></th>
-			<th class="monday-col deletion-box"><img src="week_images/sunday.png" alt="Sunday" class="deletion-box"></th>
-		</tr>
-		<tr>
-			<th><img src="time_of_day/morning.png" alt="Morning"></th>
-			<td class="monday-col"></td>
-			<td class="tuesday-col"></td>
-			<td class="wednesday-col"></td>
-			<td class="thursday-col"></td>
-			<td class="friday-col"></td>
-			<td class="saturday-col"></td>
-			<td class="sunday-col"></td>
-		</tr>
-		<tr class="border-row">
-			<th><img src="time_of_day/afternoon.png" alt="afternoon"></th>
-			<td class="monday-col"></td>
-			<td class="tuesday-col"></td>
-			<td class="wednesday-col"></td>
-			<td class="thursday-col"></td>
-			<td class="friday-col"></td>
-			<td class="saturday-col"></td>
-			<td class="sunday-col"></td>
-		</tr>
-		<tr>
-			<th><img src="time_of_day/evening.png" alt="Evening"></th>
-			<td class="monday-col"></td>
-			<td class="tuesday-col"></td>
-			<td class="wednesday-col"></td>
-			<td class="thursday-col"></td>
-			<td class="friday-col"></td>
-			<td class="saturday-col"></td>
-			<td class="sunday-col"></td>
-		</tr>
-	</table>
-	
+		<table class="main-table">
+			<tr class="deletion-box">
+				<!--Change the 'th' class selectors to their proper days-->
+				<th class="this-week deletion-box">This Week</th>
+				<th class="monday-col deletion-box"><img src="week_images/monday.png" alt="Monday" class="deletion-box">
+				</th>
+				<th class="tuesday-col deletion-box"><img src="week_images/tuesday.png" alt="Tueday"
+						class="deletion-box"></th>
+				<th class="monday-col deletion-box"><img src="week_images/wednesday.png" alt="Wednesday"
+						class="deletion-box"></th>
+				<th class="tuesday-col deletion-box"><img src="week_images/thursday.png" alt="Thursday"
+						class="deletion-box"></th>
+				<th class="monday-col deletion-box"><img src="week_images/friday.png" alt="Friday" class="deletion-box">
+				</th>
+				<th class="tuesday-col deletion-box"><img src="week_images/saturday.png" alt="Saturday"
+						class="deletion-box"></th>
+				<th class="monday-col deletion-box"><img src="week_images/sunday.png" alt="Sunday" class="deletion-box">
+				</th>
+			</tr>
+			<tr>
+				<th class="time-of-day"><img src="time_of_day/morning.png" alt="Morning"></th>
+				<td class="monday-col"></td>
+				<td class="tuesday-col"></td>
+				<td class="wednesday-col"></td>
+				<td class="thursday-col"></td>
+				<td class="friday-col"></td>
+				<td class="saturday-col"></td>
+				<td class="sunday-col"></td>
+			</tr>
+			<tr class="border-row">
+				<th class="time-of-day"><img src="time_of_day/afternoon.png" alt="Afternoon"></th>
+				<td class="monday-col"></td>
+				<td class="tuesday-col"></td>
+				<td class="wednesday-col"></td>
+				<td class="thursday-col"></td>
+				<td class="friday-col"></td>
+				<td class="saturday-col"></td>
+				<td class="sunday-col"></td>
+			</tr>
+			<tr>
+				<th class="time-of-day"><img src="time_of_day/evening.png" alt="Evening"></th>
+				<td class="monday-col"></td>
+				<td class="tuesday-col"></td>
+				<td class="wednesday-col"></td>
+				<td class="thursday-col"></td>
+				<td class="friday-col"></td>
+				<td class="saturday-col"></td>
+				<td class="sunday-col">
+					<a class="next-week" href="next_week.html">Next Week</a>
+				</td>
+			</tr>
+		</table>
+		
 	</div>
 
 	<div class="sidemenu">
@@ -111,11 +121,12 @@
 				<td><img src="transportation/aeroplane.png" alt="image3"></td>
 				<td><img src="transportation/ferry.png" alt="image4"></td>
 			</tr>
+
 		</table>
-		
-		
+
 	</div>
+
 	
-	<script type="text/javascript" src="script.js"></script>
 </body>
+<script type="text/javascript" src="script.js"></script>
 </html>

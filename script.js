@@ -1,12 +1,12 @@
-
+var html = document.documentElement.outerHTML
 open = false;
-
+var itemCount = 0
 const sideMenu = document.querySelector(".sidemenu");
 
 sideMenu.addEventListener("click", () => {
 	
 	if (open){
-		sideMenu.style.right = "-19vw"
+		sideMenu.style.right = "-21vw"
 		open = false;
 	} else {
 		sideMenu.style.right = "0px"
@@ -88,19 +88,22 @@ for (item of draggables){
 
 for (item of draggables){
 	item.addEventListener("touchend", () => {
-
+		
 		// toDrag.remove();
 		toDrag.style.display = "none"
 		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
 		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			toDrag.remove();
 		} else {
+		itemCount += 1;
+		
 		toDrag.style.display = "block"
 		copies.push(toDrag);
-		console.log(copies[copies.length - 1])
 		updateCopies();
+		
 		// newContainer = document.elementFromPoint(x, y)
 		// newContainer.append(draggables[currentElement])
+		
 		}
 		
 	})
@@ -116,3 +119,6 @@ for(var i = day; i < 21; i += 7){
 }
 console.log(dateToday);
 console.log(day);
+
+
+console.log(html)
