@@ -100,7 +100,8 @@ for (item of draggables){
 		toDrag.style.display = "block"
 		copies.push(toDrag);
 		updateCopies();
-		
+		localStorage.setItem("latest version", document.body.innerHTML);
+		// localStorage.setItem("item" + itemCount, copies[copies.length - 1])
 		// newContainer = document.elementFromPoint(x, y)
 		// newContainer.append(draggables[currentElement])
 		
@@ -112,13 +113,38 @@ for (item of draggables){
 var dateToday = new Date();
 var day = dateToday.getDay() - 1;
 const days = document.querySelectorAll("div.p1 table tr th");
-days[day + 1].style.backgroundColor = "#c5e6f5" 
-
-for(var i = day; i < 21; i += 7){
-	containers[i].style.backgroundColor = "#c5e6f5" 
+if(day == -1){
+	days[7].style.backgroundColor = "#c5e6f5" 
+	for(var i = 6; i < 21; i += 7){
+		containers[i].style.backgroundColor = "#c5e6f5" 
+	}
+	console.log(dateToday);
+	console.log(day);
+} else {
+	days[day + 1].style.backgroundColor = "#c5e6f5" 
+	for(var i = day; i < 21; i += 7){
+		containers[i].style.backgroundColor = "#c5e6f5" 
+	}
+	console.log(dateToday);
+	console.log(day);
 }
-console.log(dateToday);
-console.log(day);
+
 
 
 console.log(html)
+
+/**
+ * SAVING DATA
+ * 
+ * to get latest version, recall localStorage.setItem("latest version", document.body.innerHTML);
+ * therefore do the following
+ * 1. var latestBody = localStorage.getItem("latest version")
+ * 2. latestBody.split("</script>\n")
+ * Now you have a string containing all the latest images
+ * 3. Parse this string as so:
+ * 		imagesToAdd = new DOMParser().parseFromString(latestBody[1]);
+ * 4. Now the images are stored as elements in 'document.body.children'
+ * 5.copies.push(doc.body.children[x]) where x goes from 0 to length of array
+ * 6. updateCopies()
+ * 7. document.body.append(copies.push(doc.body.children[x]);
+ */		
