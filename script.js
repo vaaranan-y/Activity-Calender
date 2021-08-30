@@ -49,8 +49,10 @@ function updateCopies(){
 			name.remove();
 			index = copies.indexOf(name)
 			copies.splice(index, 1);
+			localStorage.setItem("latest version", document.body.innerHTML);
 		} else {
 			name.style.display = "block"
+			localStorage.setItem("latest version", document.body.innerHTML);
 		}
 	})
 
@@ -94,6 +96,7 @@ for (item of draggables){
 		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
 		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			toDrag.remove();
+			localStorage.setItem("latest version", document.body.innerHTML);
 		} else {
 		itemCount += 1;
 		
@@ -139,12 +142,36 @@ console.log(html)
  * to get latest version, recall localStorage.setItem("latest version", document.body.innerHTML);
  * therefore do the following
  * 1. var latestBody = localStorage.getItem("latest version")
- * 2. latestBody.split("</script>\n")
- * Now you have a string containing all the latest images
+ * 2. x = latestBody.split("</script>\n")
  * 3. Parse this string as so:
- * 		imagesToAdd = new DOMParser().parseFromString(latestBody[1]);
+ * 		imagesToAdd = new DOMParser().parseFromString(x[1], 'text/html');
  * 4. Now the images are stored as elements in 'document.body.children'
- * 5.copies.push(doc.body.children[x]) where x goes from 0 to length of array
- * 6. updateCopies()
- * 7. document.body.append(copies.push(doc.body.children[x]);
+ * 5.copies.push(imagesToAdd.body.children[x]) AND updateCopies() where x goes from 0 to length of array
+ * 6. document.body.append(imagesToAdd.body.children[x]);
  */		
+
+// * Now you have a string containing all the latest images
+// * y = x[1].split(">")
+// * for(var i = 0; i < x.length() - 1; i += 1){
+// 	   y[i] += '>'
+//    }
+// * images = [];
+// * for(var i = 0; i < x.length() - 1; i += 1){
+// 		 imageToAdd = new DOMParser().parseFromString(y[i], 'text/xml');
+// 	   images.push()
+//    }
+
+// a = imagesToAdd.body.children
+// for(var i = 0; i < 6; i += 1){
+// 	copies.push(a[i]);
+// 	updateCopies();
+// }
+var latestBody = localStorage.getItem("latest version")
+x = latestBody.split("</script>")
+imagesToAdd = new DOMParser().parseFromString(x[1], 'text/html');
+a = imagesToAdd.body.children
+for(var i = 0; a.length != 0; i += 0){
+	copies.push(a[i]);
+	updateCopies();
+	document.body.append(a[i])
+}
