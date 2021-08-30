@@ -44,8 +44,8 @@ function updateCopies(){
 	copies[copies.length - 1].addEventListener("touchend", () => {
 		name.style.display = "none"
 		console.log(document.elementFromPoint(x, y))
-		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
-		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
+		// console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
+		if ((y <= 0) || document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			name.remove();
 			index = copies.indexOf(name)
 			copies.splice(index, 1);
@@ -94,7 +94,7 @@ for (item of draggables){
 		// toDrag.remove();
 		toDrag.style.display = "none"
 		console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
-		if (document.elementFromPoint(x, y).classList.contains("deletion-box")){
+		if ((y <= 0) || document.elementFromPoint(x, y).classList.contains("deletion-box")){
 			toDrag.remove();
 			localStorage.setItem("latest version 2", document.body.innerHTML);
 		} else {
