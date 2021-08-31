@@ -1,143 +1,175 @@
-var html = document.documentElement.outerHTML
-open = false;
+/**
+ * Activity Calendar App
+ * 2021-08-31
+ * PM: Jack Everard
+ * Developers: Vaaranan Yogalingam, Kyle Flores
+ */
+
+// Initializing variables and constants
+var open = false;
 var itemCount = 0
 const sideMenu = document.querySelector(".sidemenu");
-
-sideMenu.addEventListener("click", () => {
-	
-	if (open){
-		sideMenu.style.right = "-21vw"
-		open = false;
-	} else {
-		sideMenu.style.right = "0px"
-		open = true;
-	}
-})
-
+// Coordinates of the currently selected element
 var x = 0
 var y = 0
+// Index of element being dragged (i.e. its position relative to all the other images in the side menu library)
 var currentElement = 0;
-toDrag = null
+// Element being dragged currently OR last element that was dragged
+var toDrag = null
+// Array of elements that have already been dragged onto the calendar from the libraray
 var copies = [];
-
-
+// Cells of the calendar table
 const containers = document.querySelectorAll("div.p1 table tr td")
+// Images that can be dragged from the library
 const draggables = document.querySelectorAll("div.sidemenu table tr td img")
 
+// Initializing the date functionality of the app
+// Note how sunday is a special case (in the Date library, Sunday = 0, Monday = 1, etc. but in our calendar, "This week" = 0, Monday = 1, ... Sunday = 7)
+function setUpDate(){
+	var dateToday = new Date();
+	var day = dateToday.getDay();
+	const days = document.querySelectorAll("div.p1 table tr th");
+	if(day == 0){
+		var sunday = 7;
+		days[sunday].style.backgroundColor = "#c5e6f5" ;
+		for(var i = sunday - 1; i < 21; i += 7){
+			containers[i].style.backgroundColor = "#c5e6f5";
+		}
+	} else {
+		days[day].style.backgroundColor = "#c5e6f5";
+		for(var i = day - 1; i < 21; i += 7){
+			containers[i].style.backgroundColor = "#c5e6f5";
+		}
+	}
+}
 
-function updateCopies(){
-	var name = copies[copies.length - 1]
-	console.log(copies[copies.length - 1])
-	console.log(name)
-	copies[copies.length - 1].addEventListener("touchstart", () => {
-		//name.style.visibility = "hidden"
+// Slide-in library menu functionality initialization
+function initializeSideMenu(){
+	sideMenu.addEventListener("click", () => {	
+		if (open){
+			sideMenu.style.right = "-21vw"
+			open = false;
+		} else {
+			sideMenu.style.right = "0px"
+			open = true;
+		}
 	})
+}
+
+// Initializes event listeners for each of the library images (so they can be dragged)
+function initializeLibraryListeners(){
+	// 1. When an image from the library is clicked
+	for(let i = 0; i < draggables.length; i++){
+		draggables[i].addEventListener("touchstart", () => {
+			currentElement = i;
+			toDrag = draggables[currentElement].cloneNode(true)
+			toDrag.classList.add("copy");
+		})
+
+	}
+
+	// 2. When an image from the library is held onto, and being dragged
+	for (item of draggables){
+		item.addEventListener("touchmove", () => {
+			x = event.touches[0].clientX;
+			y = event.touches[0].clientY;
+			document.body.append(toDrag);
+			toDrag.style.position = "absolute";
+			toDrag.style.width = "250px";
+			toDrag.style.left = x+'px';
+			toDrag.style.top = y+'px';
+
+		})
+	}
+
+	// 3. When an image from the library has been released
+	for (item of draggables){
+		item.addEventListener("touchend", () => {
+			// toDrag.style.display = "none" --> idk if this is necessary
+
+			// Check if element was dragged to top of screen, with intent of being deleted
+			// Otherwise, append the image to wherever the user released
+			if ((y <= 0) || document.elementFromPoint(x, y).classList.contains("deletion-box")){
+				toDrag.remove();
+				localStorage.setItem("latest version", document.body.innerHTML);
+			} else {
+				itemCount += 1;
+				toDrag.style.display = "block"
+				// Add the dragged in image to array of images on the calendar (i.e. the 'copies' array)
+				copies.push(toDrag);
+				// Update the copies array
+				updateCopies();
+				// Store the latest version of the calendar in local memory
+				localStorage.setItem("latest version", document.body.innerHTML);
+			}
+		})
+	}
+}
+
+
+// Adds event listeners to the images on the calendar, in the same way we added event listeners to each image in the library
+function updateCopies(){
+	// Get the latest image added to the calendar (so we can initialize event listeners for it)
+	var latestImage = copies[copies.length - 1]
+
+	// 1. When an image on the calendar is clicked
+	copies[copies.length - 1].addEventListener("touchstart", () => {
+		// Keep this event listener for now (not sure if there would be an error without it)
+	})
+
+	// 2. When an image on the calendar is held onto, and being dragged
 	copies[copies.length - 1].addEventListener("touchmove", () => {
 		x = event.touches[0].clientX;
 		y = event.touches[0].clientY;
-		document.body.append(name);
-		name.style.position = "absolute";
-		name.style.width = "250px";
-		name.style.left = x+'px';
-  		name.style.top = y+'px';
+		document.body.append(latestImage);
+		latestImage.style.position = "absolute";
+		latestImage.style.width = "250px";
+		latestImage.style.left = x+'px';
+		latestImage.style.top = y+'px';
 	})
+
+	// 3. When an image on the calendar has been released
 	copies[copies.length - 1].addEventListener("touchend", () => {
-		name.style.display = "none"
-		console.log(document.elementFromPoint(x, y))
-		// console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
+		latestImage.style.display = "none"
 		if ((y <= 0) || document.elementFromPoint(x, y).classList.contains("deletion-box")){
-			name.remove();
-			index = copies.indexOf(name)
+			latestImage.remove();
+			index = copies.indexOf(latestImage)
 			copies.splice(index, 1);
 			localStorage.setItem("latest version", document.body.innerHTML);
 		} else {
-			name.style.display = "block"
+			latestImage.style.display = "block"
 			localStorage.setItem("latest version", document.body.innerHTML);
 		}
 	})
-
-	console.log("yay")
 }
 
-
-for(let i = 0; i < 36; i++){
-	draggables[i].addEventListener("touchstart", () => {
-		currentElement = i;
-
-		console.log(currentElement)
-		toDrag = draggables[currentElement].cloneNode(true)
-		toDrag.classList.add("copy");
-		// toDrag.addEventListener("touchstart", console.log("working"))
-		// draggables[currentElement].style.visibility = "hidden"
-		
-	})
-
-}
-
-for (item of draggables){
-	item.addEventListener("touchmove", () => {
-		x = event.touches[0].clientX;
-		y = event.touches[0].clientY;
-		console.log("dragging")
-		document.body.append(toDrag);
-		toDrag.style.position = "absolute";
-		toDrag.style.width = "250px";
-		toDrag.style.left = x+'px';
-  		toDrag.style.top = y+'px';
-
-	})
-}
-
-for (item of draggables){
-	item.addEventListener("touchend", () => {
-		
-		// toDrag.remove();
-		toDrag.style.display = "none"
-		// console.log(document.elementFromPoint(x, y).classList.contains("deletion-box"))
-		if ((y <= 0) || document.elementFromPoint(x, y).classList.contains("deletion-box")){
-			toDrag.remove();
-			localStorage.setItem("latest version", document.body.innerHTML);
-		} else {
-		itemCount += 1;
-		
-		toDrag.style.display = "block"
-		copies.push(toDrag);
+// Reloads latest version
+function reloadPreviousCalendar(){
+	// Get latest version of the body of the calendar app
+	var latestBody = localStorage.getItem("latest version")
+	// After "</script>" is when the newly added images appear, which is what we want to load when opening the app (these images are stored in index 1 of the array)
+	x = latestBody.split("</script>")
+	// Convert the string containing the images we want to load into actuall html (now stored in the body of some sample HTML)
+	convertedToHTML = new DOMParser().parseFromString(x[1], 'text/html');
+	// Store the actual image elements in an array of image elements what we will now load
+	imagesToLoad = convertedToHTML.body.children
+	// Append each image to the body (note that after appending one element from the array, you also remove that element from the array, which is why this for loop is strange)
+	for(var i = 0; imagesToLoad.length != 0; i += 0){
+		copies.push(imagesToLoad[i]);
 		updateCopies();
-		localStorage.setItem("latest version", document.body.innerHTML);
-		// localStorage.setItem("item" + itemCount, copies[copies.length - 1])
-		// newContainer = document.elementFromPoint(x, y)
-		// newContainer.append(draggables[currentElement])
-		
-		}
-		
-	})
+		document.body.append(imagesToLoad[i])
+	}
 }
 
-var dateToday = new Date();
-var day = dateToday.getDay() - 1;
-const days = document.querySelectorAll("div.p1 table tr th");
-if(day == -1){
-	days[7].style.backgroundColor = "#c5e6f5" 
-	for(var i = 6; i < 21; i += 7){
-		containers[i].style.backgroundColor = "#c5e6f5" 
-	}
-	console.log(dateToday);
-	console.log(day);
-} else {
-	days[day + 1].style.backgroundColor = "#c5e6f5" 
-	for(var i = day; i < 21; i += 7){
-		containers[i].style.backgroundColor = "#c5e6f5" 
-	}
-	console.log(dateToday);
-	console.log(day);
-}
+// Invoke all methods needed to boot up app
+setUpDate();
+initializeSideMenu();
+initializeLibraryListeners();
+reloadPreviousCalendar();
 
-
-
-console.log(html)
 
 /**
- * SAVING DATA
+ * SAVING AND RELOADING DATA
  * 
  * to get latest version, recall localStorage.setItem("latest version", document.body.innerHTML);
  * therefore do the following
@@ -166,12 +198,3 @@ console.log(html)
 // 	copies.push(a[i]);
 // 	updateCopies();
 // }
-var latestBody = localStorage.getItem("latest version")
-x = latestBody.split("</script>")
-imagesToAdd = new DOMParser().parseFromString(x[1], 'text/html');
-a = imagesToAdd.body.children
-for(var i = 0; a.length != 0; i += 0){
-	copies.push(a[i]);
-	updateCopies();
-	document.body.append(a[i])
-}
